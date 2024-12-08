@@ -1,19 +1,24 @@
 import express from 'express'
-// Database
 import mDb from './database/mDb.js'
-// Routes
+
 import signupRoute from './routes/userRoute.js'
 import loginRoute from './routes/loginRoute.js'
+import chatRoute from './routes/chatRoute.js'
 
-const server = express()
+import http from 'http'
+import { Server } from 'socket.io'
+
+const app = express()
+const server = http.createServer(app)
+const io = new Server(server)
+
 const port = 5000
 
-server.use(express.json())
+app.use(express.json())
+app.use('/signup', signupRoute)
+app.use('/login', loginRoute)
+app.use('/chat', chatRoute)
 
-server.use('/signup', signupRoute)
-server.use('/login', loginRoute)
-
-
-server.listen(port,() =>{
-    console.log(`Server listening to port ${port}`)
+server.listen(port, () => {
+    console.log(`Server listening on port ${port}`)
 })
