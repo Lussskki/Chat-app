@@ -2,14 +2,16 @@ import express from 'express'
 // Database
 import mDb from './database/mDb.js'
 // Routes
-import userRoute from './routes/userRoute.js'
+import signupRoute from './routes/userRoute.js'
+import loginRoute from './routes/loginRoute.js'
 
 const server = express()
 const port = 5000
 
 server.use(express.json())
 
-server.use('/signup', userRoute)
+server.use('/signup', signupRoute)
+server.use('/login', loginRoute)
 
 
 server.listen(port,() =>{
